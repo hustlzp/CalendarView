@@ -26,7 +26,6 @@
 import UIKit
 
 open class CalendarDayCell: UICollectionViewCell {
-    
     var style: CalendarView.Style = CalendarView.Style.Default
     
     override open var description: String {
@@ -53,22 +52,17 @@ open class CalendarDayCell: UICollectionViewCell {
     }
     
     func updateTextColor() {
-        if isSelected {
-            self.textLabel.textColor = style.cellSelectedTextColor
-        }
-        else if isToday {
-            self.textLabel.textColor = style.cellTextColorToday
-        }
-        else if isOutOfRange {
-            self.textLabel.textColor = style.cellColorOutOfRange
-        }
-        else if isAdjacent {
-            self.textLabel.textColor = style.cellColorAdjacent
-        }
-        else if isWeekend {
+        if isCustomSelected {
             self.textLabel.textColor = style.cellTextColorWeekend
-        }
-        else {
+        } else if isToday {
+            self.textLabel.textColor = style.cellTextColorToday
+        } else if isOutOfRange {
+            self.textLabel.textColor = style.cellColorOutOfRange
+        } else if isAdjacent {
+            self.textLabel.textColor = style.cellColorAdjacent
+        } else if isWeekend {
+            self.textLabel.textColor = style.cellTextColorWeekend
+        } else {
             self.textLabel.textColor = style.cellTextColorDefault
         }
     }
@@ -104,9 +98,9 @@ open class CalendarDayCell: UICollectionViewCell {
         }
     }
     
-    override open var isSelected : Bool {
+    var isCustomSelected: Bool = false {
         didSet {
-            switch isSelected {
+            switch isCustomSelected {
             case true:
                 self.bgView.layer.borderColor = style.cellSelectedBorderColor.cgColor
                 self.bgView.layer.borderWidth = style.cellSelectedBorderWidth
