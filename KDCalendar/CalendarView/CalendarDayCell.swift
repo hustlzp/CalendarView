@@ -161,7 +161,7 @@ open class CalendarDayCell: UICollectionViewCell {
         
         super.layoutSubviews()
         
-        var elementsFrame = self.bounds.insetBy(dx: 3.0, dy: 3.0)
+        var elementsFrame = self.bounds.insetBy(dx: style.cellInsetX, dy: style.cellInsetY)
         
         if style.cellShape.isRound { // square of
             let smallestSide = min(elementsFrame.width, elementsFrame.height)
