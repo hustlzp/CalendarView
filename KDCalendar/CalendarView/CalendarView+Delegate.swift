@@ -32,8 +32,6 @@ extension CalendarView: UICollectionViewDelegateFlowLayout {
         guard let date = self.dateFromIndexPath(indexPath) else { return }
         
         if let index = selectedIndexPaths.firstIndex(of: indexPath) {
-            
-            delegate?.calendar(self, didDeselectDate: date)
             if enableDeselection {
                 // bug: when deselecting the second to last item programmatically, during
                 // didDeselectDate delegation, the index returned is out of the bounds of
@@ -43,6 +41,7 @@ extension CalendarView: UICollectionViewDelegateFlowLayout {
                 }
                 selectedIndexPaths.remove(at: index)
                 selectedDates.remove(at: index)
+                delegate?.calendar(self, didDeselectDate: date)
             }
             
         } else {
