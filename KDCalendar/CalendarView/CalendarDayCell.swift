@@ -66,7 +66,7 @@ open class CalendarDayCell: UICollectionViewCell {
     
     func updateTextColor() {
         if isCustomSelected {
-            self.textLabel.textColor = style.cellTextColorWeekend
+            self.textLabel.textColor = style.cellSelectedTextColor
         } else if isToday {
             self.textLabel.textColor = style.cellTextColorToday
         } else if isOutOfRange {
