@@ -104,10 +104,16 @@ extension CalendarView: UICollectionViewDelegateFlowLayout {
         case .horizontal:
             let offsetX = ceilf(Float(self.collectionView.contentOffset.x))
             let width = self.collectionView.bounds.size.width
+            guard width != 0 else {
+                return nil
+            }
             page = Int(floor(offsetX / Float(width)))
         case .vertical:
             let offsetY = ceilf(Float(self.collectionView.contentOffset.y))
             let height = self.collectionView.bounds.size.height
+            guard height != 0 else {
+                return nil
+            }
             page = Int(floor(offsetY / Float(height)))
         @unknown default:
             fatalError()
