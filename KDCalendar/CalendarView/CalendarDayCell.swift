@@ -27,7 +27,13 @@ import UIKit
 import Kingfisher
 
 open class CalendarDayCell: UICollectionViewCell {
-    var style: CalendarView.Style = CalendarView.Style.Default
+    var style: CalendarView.Style = CalendarView.Style.Default {
+        didSet {
+            // TODO: temp fix
+            textLabel.font = style.cellFont
+            dotsView.backgroundColor = style.cellEventColor
+        }
+    }
     
     override open var description: String {
         let dayString = self.textLabel.text ?? " "

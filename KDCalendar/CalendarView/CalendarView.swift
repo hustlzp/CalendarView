@@ -115,6 +115,10 @@ public class CalendarView: UIView {
     public var calendar : Calendar {
         return style.calendar
     }
+
+    public var cellSize: CGSize {
+        return flowLayout.itemSize
+    }
     
     public internal(set) var selectedIndexPaths = [IndexPath]()
     public internal(set) var selectedDates = [Date]()
