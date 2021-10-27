@@ -75,7 +75,7 @@ public protocol CalendarViewDelegate {
     func calendar(_ calendar : CalendarView, canSelectDate date : Date) -> Bool
     func calendar(_ calendar : CalendarView, didDeselectDate date : Date) -> Void
     func calendar(_ calendar : CalendarView, didLongPressDate date : Date, withEvents events: [CalendarEvent]?) -> Void
-    func calendar(_ calendar : CalendarView, backgroundImageForDate date : Date) -> UIImage?
+    func calendar(_ calendar : CalendarView, backgroundImageForDate date : Date) -> Any?
 }
 
 public extension CalendarViewDelegate {

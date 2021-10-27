@@ -24,6 +24,7 @@
  */
 
 import UIKit
+import Kingfisher
 
 open class CalendarDayCell: UICollectionViewCell {
     var style: CalendarView.Style = CalendarView.Style.Default
@@ -51,9 +52,15 @@ open class CalendarDayCell: UICollectionViewCell {
         }
     }
 
-    var bgImage: UIImage? = nil {
+    var bgImage: Any? = nil {
         didSet {
-            bgImageView.image = bgImage
+            if let image = bgImage as? UIImage {
+                bgImageView.image = image
+            } else if let imageUrl = bgImage as? URL {
+                bgImageView.kf.setImage(with: imageUrl)
+            } else {
+                bgImageView.image = nil
+            }
         }
     }
     

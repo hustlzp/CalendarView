@@ -32,4 +32,6 @@ Pod::Spec.new do |s|
     ss.pod_target_xcconfig = { 'SWIFT_ACTIVE_COMPILATION_CONDITIONS' => 'KDCALENDAR_EVENT_MANAGER_ENABLED' }
   end
 
+  s.dependency 'Kingfisher', '~> 7.0'
+
 end
