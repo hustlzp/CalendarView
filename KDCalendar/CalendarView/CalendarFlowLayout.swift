@@ -25,8 +25,25 @@
 
 import UIKit
 
+protocol CalendarFlowLayoutDelegate: AnyObject {
+    func calendarFlowLayoutGetStyle(
+        _ layout: CalendarFlowLayout
+    ) -> CalendarView.Style
+}
+
 open class CalendarFlowLayout: UICollectionViewFlowLayout {
-    
+    weak var delegate: CalendarFlowLayoutDelegate?
+
+    open override var collectionViewContentSize: CGSize {
+        guard let collectionView = collectionView else {
+            return .zero
+        }
+
+        return CGSize(
+            width: collectionView.frame.size.width * CGFloat(collectionView.numberOfSections),
+            height: collectionView.frame.size.height
+        )
+    }
     
     override open func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         
@@ -38,7 +55,6 @@ open class CalendarFlowLayout: UICollectionViewFlowLayout {
     }
     
     override open func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        
         if let attrs = super.layoutAttributesForItem(at: indexPath) {
             let attrscp = attrs.copy() as! UICollectionViewLayoutAttributes
             self.applyLayoutAttributes(attrscp)
@@ -51,8 +67,9 @@ open class CalendarFlowLayout: UICollectionViewFlowLayout {
         guard attributes.representedElementKind == nil else { return }
         
         guard let collectionView = self.collectionView else { return }
-        
-        var xCellOffset = CGFloat(attributes.indexPath.item % 7) * self.itemSize.width
+
+        let insetLeft = delegate?.calendarFlowLayoutGetStyle(self).insetLeft ?? 0
+        var xCellOffset = CGFloat(attributes.indexPath.item % 7) * self.itemSize.width + insetLeft
         var yCellOffset = CGFloat(attributes.indexPath.item / 7) * self.itemSize.height
         
         let offset = CGFloat(attributes.indexPath.section)

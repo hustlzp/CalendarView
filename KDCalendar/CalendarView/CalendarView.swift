@@ -193,14 +193,20 @@ public class CalendarView: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
         
         /* Header View */
-        self.headerView = CalendarHeaderView(frame:CGRect.zero)
+        self.headerView = CalendarHeaderView(frame: CGRect.zero)
         self.headerView.style = style
         self.addSubview(self.headerView)
         
         /* Layout */
         let layout = CalendarFlowLayout()
+        layout.delegate = self
         layout.scrollDirection = self.direction;
-        layout.sectionInset = UIEdgeInsets.zero
+        layout.sectionInset = UIEdgeInsets(
+            top: style.insetLeft,
+            left: 0,
+            bottom: style.insetRight,
+            right: 0
+        )
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
 
@@ -213,8 +219,11 @@ public class CalendarView: UIView {
         self.collectionView.showsHorizontalScrollIndicator  = false
         self.collectionView.showsVerticalScrollIndicator    = false
         self.collectionView.allowsMultipleSelection         = false
-        self.collectionView.register(CalendarDayCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
-        
+        self.collectionView.register(
+            CalendarDayCell.self,
+            forCellWithReuseIdentifier: cellReuseIdentifier
+        )
+
         self.addSubview(self.collectionView)
         
         // Update semantic content attributes
@@ -260,9 +269,9 @@ public class CalendarView: UIView {
         super.layoutSubviews()
         
         self.headerView?.frame = CGRect(
-            x: 0.0,
+            x: style.insetLeft,
             y: 0.0,
-            width: self.frame.size.width,
+            width: self.frame.size.width - style.insetLeft - style.insetRight,
             height: style.headerHeight
         )
         
@@ -285,7 +294,7 @@ public class CalendarView: UIView {
             }
         
         return CGSize(
-            width:   collectionView.bounds.width / 7.0,                                    // number of days in week
+            width: (collectionView.bounds.width - style.insetLeft - style.insetRight) / 7.0,                                    // number of days in week
             height: (collectionView.bounds.height) / 6.0 // maximum number of rows
         )
     }
@@ -514,4 +523,12 @@ extension CalendarView {
     }
 
     #endif
+}
+
+// MARK: - CalendarFlowLayoutDelegate
+
+extension CalendarView: CalendarFlowLayoutDelegate {
+    func calendarFlowLayoutGetStyle(_ layout: CalendarFlowLayout) -> Style {
+        return style
+    }
 }

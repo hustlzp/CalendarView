@@ -68,6 +68,8 @@ extension CalendarView {
         public var cellShape                 = CellShapeOptions.bevel(4.0)
         public var cellInsetX: CGFloat = 3.0
         public var cellInsetY: CGFloat = 3.0
+        public var insetLeft: CGFloat = 0.0
+        public var insetRight: CGFloat = 0.0
         
         public var firstWeekday              = FirstWeekdayOptions.monday
         public var showAdjacentDays          = false
