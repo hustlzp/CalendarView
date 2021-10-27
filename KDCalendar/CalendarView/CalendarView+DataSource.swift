@@ -148,6 +148,10 @@ extension CalendarView: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let date = dateFromIndexPath(indexPath) else {
+            return UICollectionViewCell()
+        }
+
         let dayCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! CalendarDayCell
         
         dayCell.style = style
@@ -207,10 +211,11 @@ extension CalendarView: UICollectionViewDataSource {
             
             dayCell.isAdjacent = isAdjacent
             dayCell.isOutOfRange = cellOutOfRange(indexPath)
-            
+            dayCell.bgImage = delegate?.calendar(self, backgroundImageForDate: date)
         } else {
             dayCell.isHidden = true
-            dayCell.textLabel.text = ""
+            dayCell.textLabel.text = nil
+            dayCell.bgImage = nil
         }
         
         // hack: send once at the beginning

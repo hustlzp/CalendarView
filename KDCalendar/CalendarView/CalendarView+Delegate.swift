@@ -97,7 +97,7 @@ extension CalendarView: UICollectionViewDelegateFlowLayout {
     }
 
     @discardableResult
-    func dateFromScrollViewPosition() -> Date? {
+    public func dateFromScrollViewPosition() -> Date? {
         var page: Int = 0
         
         switch self.direction {

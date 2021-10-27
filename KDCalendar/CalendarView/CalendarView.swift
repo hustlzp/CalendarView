@@ -75,12 +75,22 @@ public protocol CalendarViewDelegate {
     func calendar(_ calendar : CalendarView, canSelectDate date : Date) -> Bool
     func calendar(_ calendar : CalendarView, didDeselectDate date : Date) -> Void
     func calendar(_ calendar : CalendarView, didLongPressDate date : Date, withEvents events: [CalendarEvent]?) -> Void
+    func calendar(_ calendar : CalendarView, backgroundImageForDate date : Date) -> UIImage?
 }
 
-extension CalendarViewDelegate {
-    func calendar(_ calendar : CalendarView, canSelectDate date : Date) -> Bool { return true }
-    func calendar(_ calendar : CalendarView, didDeselectDate date : Date) -> Void { return }
-    func calendar(_ calendar : CalendarView, didLongPressDate date : Date, withEvents events: [CalendarEvent]?) -> Void { return }
+public extension CalendarViewDelegate {
+    func calendar(_ calendar : CalendarView, canSelectDate date : Date) -> Bool {
+        return true
+    }
+    func calendar(_ calendar : CalendarView, didDeselectDate date : Date) -> Void {
+        return
+    }
+    func calendar(_ calendar : CalendarView, didLongPressDate date : Date, withEvents events: [CalendarEvent]?) -> Void {
+        return
+    }
+    func calendar(_ calendar : CalendarView, backgroundImageForDate date : Date) -> UIImage? {
+        return nil
+    }
 }
 
 public class CalendarView: UIView {

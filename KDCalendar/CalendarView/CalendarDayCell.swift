@@ -50,6 +50,12 @@ open class CalendarDayCell: UICollectionViewCell {
             return Int(value)
         }
     }
+
+    var bgImage: UIImage? = nil {
+        didSet {
+            bgImageView.image = bgImage
+        }
+    }
     
     func updateTextColor() {
         if isCustomSelected {
@@ -131,28 +137,27 @@ open class CalendarDayCell: UICollectionViewCell {
     
     let textLabel   = UILabel()
     let dotsView    = UIView()
+    private lazy var bgImageView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFill
+        view.layer.masksToBounds = true
+        return view
+    }()
     let bgView      = UIView()
     
     override init(frame: CGRect) {
-        
         self.textLabel.textAlignment = NSTextAlignment.center
-        
-        
         self.dotsView.backgroundColor = style.cellEventColor
-        
         self.textLabel.font = style.cellFont
-        
-        
+
         super.init(frame: frame)
-        
+
+        self.addSubview(bgImageView)
         self.addSubview(self.bgView)
         self.addSubview(self.textLabel)
-        
         self.addSubview(self.dotsView)
-        
     }
-    
-    
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -170,7 +175,8 @@ open class CalendarDayCell: UICollectionViewCell {
                 dy: (elementsFrame.height - smallestSide) / 2.0
             )
         }
-        
+
+        self.bgImageView.frame = elementsFrame
         self.bgView.frame           = elementsFrame
         self.textLabel.frame        = elementsFrame
         
@@ -182,10 +188,13 @@ open class CalendarDayCell: UICollectionViewCell {
         switch style.cellShape {
         case .square:
             self.bgView.layer.cornerRadius = 0.0
+            bgImageView.layer.cornerRadius = 0
         case .round:
             self.bgView.layer.cornerRadius = elementsFrame.width * 0.5
+            bgImageView.layer.cornerRadius = elementsFrame.width * 0.5
         case .bevel(let radius):
             self.bgView.layer.cornerRadius = radius
+            bgImageView.layer.cornerRadius = radius
         }
         
         
