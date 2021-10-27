@@ -164,22 +164,13 @@ public class CalendarView: UIView {
     
     public var delegate: CalendarViewDelegate?
     public var dataSource: CalendarViewDataSource?
-    
-    #if swift(>=4.2)
+
     public var direction : UICollectionView.ScrollDirection = .horizontal {
         didSet {
             flowLayout.scrollDirection = direction
             self.collectionView.reloadData()
         }
     }
-    #else
-    public var direction : UICollectionView.ScrollDirection = .horizontal {
-        didSet {
-            flowLayout.scrollDirection = direction
-            self.collectionView.reloadData()
-        }
-    }
-    #endif
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -302,23 +293,13 @@ public class CalendarView: UIView {
     internal var _isRtl = false
     
     internal func updateLayoutDirections() {
-        if #available(iOS 9.0, *) {
-            self.collectionView?.semanticContentAttribute = .forceLeftToRight
-            self.headerView?.semanticContentAttribute = forceLtr ? .forceLeftToRight : .unspecified
-        }
+        self.collectionView?.semanticContentAttribute = .forceLeftToRight
+        self.headerView?.semanticContentAttribute = forceLtr ? .forceLeftToRight : .unspecified
         
         var isRtl = false
         
-        if !forceLtr
-        {
-            isRtl = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft
-            
-            if #available(iOS 10.0, *) {
-                isRtl = self.effectiveUserInterfaceLayoutDirection == .rightToLeft
-            }
-            else if #available(iOS 9.0, *) {
-                isRtl = UIView.userInterfaceLayoutDirection(for: self.semanticContentAttribute) == .rightToLeft
-            }
+        if !forceLtr {
+            isRtl = self.effectiveUserInterfaceLayoutDirection == .rightToLeft
         }
         
         if _isRtl != isRtl
@@ -424,18 +405,13 @@ extension CalendarView {
      function: - scroll calendar at date (month/year) passed as parameter.
      */
     public func setDisplayDate(_ date : Date, animated: Bool = false) {
-		if #available(iOS 10.0, *) {
-			guard
-				let startDate = calendar.dateInterval(of: .month, for: startDateCache)?.start,
-				let endDate = calendar.dateInterval(of: .month, for: endDateCache)?.end,
-				(startDate..<endDate).contains(date)
-			else {
-				return
-			}
-		}
-		else {
-			guard (startDateCache..<endDateCache).contains(date) else { return }
-		}
+        guard
+            let startDate = calendar.dateInterval(of: .month, for: startDateCache)?.start,
+            let endDate = calendar.dateInterval(of: .month, for: endDateCache)?.end,
+            (startDate..<endDate).contains(date)
+        else {
+            return
+        }
 		
         self.collectionView?.reloadData()
         self.collectionView?.setContentOffset(self.scrollViewOffset(for: date), animated: animated)
