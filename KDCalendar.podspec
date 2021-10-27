@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 
   s.author       = "Michael Michailidis"
 
-  s.platform     = :ios, "8.0"
+  s.platform     = :ios, "12.0"
 
   s.swift_versions = [5.0]
 
