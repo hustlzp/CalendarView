@@ -42,8 +42,9 @@ extension CalendarView: UICollectionViewDelegateFlowLayout {
                 selectedIndexPaths.remove(at: index)
                 selectedDates.remove(at: index)
                 delegate?.calendar(self, didDeselectDate: date)
+            } else {
+                delegate?.calendar(self, didSelectDate: date, withEvents: [])
             }
-            
         } else {
             if let currentCell = collectionView.cellForItem(at: indexPath) as? CalendarDayCell, currentCell.isOutOfRange || currentCell.isAdjacent {
                 self.reloadData()
