@@ -88,7 +88,7 @@ public extension CalendarViewDelegate {
     func calendar(_ calendar : CalendarView, didLongPressDate date : Date, withEvents events: [CalendarEvent]?) -> Void {
         return
     }
-    func calendar(_ calendar : CalendarView, backgroundImageForDate date : Date) -> UIImage? {
+    func calendar(_ calendar : CalendarView, backgroundImageForDate date : Date) -> Any? {
         return nil
     }
 }
@@ -97,7 +97,7 @@ public class CalendarView: UIView {
     
     public let cellReuseIdentifier = "CalendarDayCell"
     
-    var headerView: CalendarHeaderView!
+    public private(set) var headerView: CalendarHeaderView!
     var collectionView: UICollectionView!
     
     public var forceLtr: Bool = true {

@@ -76,9 +76,9 @@ open class CalendarDayCell: UICollectionViewCell {
         } else if isToday {
             self.textLabel.textColor = style.cellTextColorToday
         } else if isOutOfRange {
-            self.textLabel.textColor = style.cellColorOutOfRange
+            self.textLabel.textColor = style.cellTextColorOutOfRange
         } else if isAdjacent {
-            self.textLabel.textColor = style.cellColorAdjacent
+            self.textLabel.textColor = style.cellTextColorAdjacent
         } else if isWeekend {
             self.textLabel.textColor = style.cellTextColorWeekend
         } else {
@@ -119,12 +119,11 @@ open class CalendarDayCell: UICollectionViewCell {
     
     var isCustomSelected: Bool = false {
         didSet {
-            switch isCustomSelected {
-            case true:
+            if isCustomSelected {
                 self.bgView.layer.borderColor = style.cellSelectedBorderColor.cgColor
                 self.bgView.layer.borderWidth = style.cellSelectedBorderWidth
                 self.bgView.backgroundColor = style.cellSelectedColor
-            case false:
+            } else {
                 self.bgView.layer.borderColor = style.cellBorderColor.cgColor
                 self.bgView.layer.borderWidth = style.cellBorderWidth
                 if self.isToday {

@@ -33,9 +33,9 @@ open class CalendarHeaderView: UIView {
         }
     }
     
-    var monthLabel: UILabel!
+    public private(set) var monthLabel: UILabel!
     
-    var dayLabels = [UILabel]()
+    public private(set) var dayLabels = [UILabel]()
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -73,7 +73,9 @@ open class CalendarHeaderView: UIView {
         for index in start..<(start+7) {
             let label = dayLabels[i]
             label.font = style.weekdaysFont
-            label.text = style.weekDayTransform == .capitalized ? formatter.shortWeekdaySymbols[(index % 7)].capitalized : formatter.shortWeekdaySymbols[(index % 7)].uppercased()
+            label.text = style.weekDayTransform == .capitalized
+            ? formatter.shortWeekdaySymbols[(index % 7)].capitalized
+            : formatter.shortWeekdaySymbols[(index % 7)].uppercased()
             label.textColor = style.weekdaysTextColor
             label.textAlignment = .center
             

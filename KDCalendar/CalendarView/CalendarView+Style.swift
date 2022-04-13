@@ -84,8 +84,8 @@ extension CalendarView {
         //Today Style
         public var cellTextColorToday        = UIColor.gray
         public var cellColorToday            = UIColor(red: 254.0/255.0, green: 73.0/255.0, blue: 64.0/255.0, alpha: 0.3)
-        public var cellColorOutOfRange       = UIColor(white: 0.0, alpha: 0.5)
-        public var cellColorAdjacent         = UIColor.clear
+        public var cellTextColorOutOfRange       = UIColor(white: 0.0, alpha: 0.5)
+        public var cellTextColorAdjacent         = UIColor.clear
         
         //Selected Style
         public var cellSelectedBorderColor   = UIColor(red: 254.0/255.0, green: 73.0/255.0, blue: 64.0/255.0, alpha: 0.8)
