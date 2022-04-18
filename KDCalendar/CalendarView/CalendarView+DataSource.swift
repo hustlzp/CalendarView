@@ -159,7 +159,7 @@ extension CalendarView: UICollectionViewDataSource {
         
         dayCell.transform = _isRtl
             ? CGAffineTransform(scaleX: -1.0, y: 1.0)
-            : CGAffineTransform.identity
+            : .identity
         
         guard let (firstDayIndex, numberOfDaysTotal) = self.getCachedSectionInfo(indexPath.section) else {
             return dayCell
@@ -224,6 +224,9 @@ extension CalendarView: UICollectionViewDataSource {
         }
         
         guard !dayCell.isOutOfRange else {
+            dayCell.isToday = false
+            dayCell.isWeekend = false
+            dayCell.isCustomSelected = false
             return dayCell
         }
         
@@ -238,7 +241,7 @@ extension CalendarView: UICollectionViewDataSource {
         if self.marksWeekends {
             let we = indexPath.item % 7
             let weekDayOption = style.firstWeekday == .sunday ? 0 : 5
-            dayCell.isWeekend = we == weekDayOption || we == 6
+            dayCell.isWeekend = (we == weekDayOption || we == 6)
         }
         
         dayCell.eventsCount = self.eventsByIndexPath[indexPath]?.count ?? 0
